@@ -17,9 +17,8 @@ This repository contains configuration for:
 - **Git**: git configuration and global ignore
 - **Editor**: neovim (AstroNvim), Zed (keymaps and tasks), IdeaVim
 - **AI Tools**: Claude Code, OpenCode
-- **SSH**: SSH configuration (macOS optimized)
 - **CLI Tools**: btop, television, pgcli, lsd
-- **Version Management**: asdf (.tool-versions)
+- **Version Management**: asdf plugin bootstrap (no global `.tool-versions` tracked)
 - **Package Management**: Homebrew (Brewfile)
 
 ## What's NOT included (Secrets)

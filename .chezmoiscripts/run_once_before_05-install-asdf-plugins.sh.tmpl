@@ -7,6 +7,9 @@ if command -v asdf &> /dev/null; then
   asdf plugin add python || true
   asdf plugin add ruby || true
   asdf plugin add java || true
-  # Install all versions from .tool-versions
-  asdf install || true
+  asdf plugin add terraform || true
+  # Install versions only when a global .tool-versions exists
+  if [ -f "$HOME/.tool-versions" ]; then
+    asdf install || true
+  fi
 fi

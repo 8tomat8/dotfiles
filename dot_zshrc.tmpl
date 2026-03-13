@@ -71,7 +71,7 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git asdf kubectl aws docker-compose helm extract z zsh-history-substring-search
+  git asdf docker-compose extract z zsh-history-substring-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -92,10 +92,11 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export VISUAL='vim'
 else
-  export EDITOR='nvim'
+  export VISUAL='nvim'
 fi
+export EDITOR="$VISUAL"
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -115,8 +116,6 @@ fi
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="vim"
-export VISUAL=nvim
-export EDITOR="$VISUAL"
 
 # ASDF
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
@@ -152,7 +151,6 @@ export PATH=~/Projects/go/bin:$PATH
 export GOPATH=~/Projects/go
 # Opencode
 export PATH=$HOME/.opencode/bin:$PATH
-export op=opencode
 
 # Misc aliases
 alias tig=lazygit
@@ -165,8 +163,6 @@ alias ccp="claude -p"
 alias oc=opencode
 alias ccl="cargo clippy --workspace --all-targets --all-features -- --deny warnings"
 alias pp="pnpm install && pnpm ios --device"
-# Helm version
-export PATH="$HOME/.helmenv/bin:$PATH"
 
 export GPG_TTY=$(tty)
 
