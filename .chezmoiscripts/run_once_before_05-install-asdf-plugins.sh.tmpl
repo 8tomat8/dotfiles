@@ -1,0 +1,12 @@
+#!/bin/bash
+if command -v asdf &> /dev/null; then
+  echo "Installing asdf plugins..."
+  # Install each plugin if not already installed
+  asdf plugin add golang || true
+  asdf plugin add nodejs || true
+  asdf plugin add python || true
+  asdf plugin add ruby || true
+  asdf plugin add java || true
+  # Install all versions from .tool-versions
+  asdf install || true
+fi

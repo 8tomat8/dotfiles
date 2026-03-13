@@ -1,0 +1,111 @@
+[general]
+import = [
+    "~/.config/alacritty/themes/themes/monokai_charcoal.toml"
+]
+
+[window]
+# option_as_alt = "Both"
+
+startup_mode = "SimpleFullscreen"
+opacity = 0.9
+
+padding.x = 0
+padding.y = 0
+
+decorations = "None"
+
+[font]
+normal.family = "JetBrainsMono Nerd Font Mono"
+bold.family = "JetBrainsMono Nerd Font Mono"
+bold.style = "SemiBold"
+italic.family = "JetBrainsMono Nerd Font Mono"
+italic.style = "Italic"
+bold_italic.family = "JetBrainsMono Nerd Font Mono"
+bold_italic.style = "MediumItalic"
+
+size = 11.0
+
+[terminal]
+shell = { program = "/opt/homebrew/bin/tmux", args = ["new-session", "-A", "-s", "main"] }
+
+[scrolling]
+history = 65535
+
+[cursor.style]
+shape                 = "Beam"
+blinking              = "Always"
+
+[cursor.vi_mode_style]
+shape                 = "Block"
+blinking              = "Off"
+
+[mouse]
+hide_when_typing      = true
+bindings = [
+  { mouse = "Middle", action = "PasteSelection" },
+]
+
+[[hints.enabled]]
+command = "open" # On macOS
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+binding = { key = "O", mods = "Control|Shift" }
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
+
+[[keyboard.bindings]]
+key = "Escape"
+mods = "Shift"
+chars = "\u001b[27;2~"
+
+# Cmd+1–9 → tmux window switching (overrides Alacritty's default Cmd+N tab switch)
+[[keyboard.bindings]]
+key = "Key1"
+mods = "Command"
+chars = "\u001b[1;9~"
+
+[[keyboard.bindings]]
+key = "Key2"
+mods = "Command"
+chars = "\u001b[2;9~"
+
+[[keyboard.bindings]]
+key = "Key3"
+mods = "Command"
+chars = "\u001b[3;9~"
+
+[[keyboard.bindings]]
+key = "Key4"
+mods = "Command"
+chars = "\u001b[4;9~"
+
+[[keyboard.bindings]]
+key = "Key5"
+mods = "Command"
+chars = "\u001b[5;9~"
+
+[[keyboard.bindings]]
+key = "Key6"
+mods = "Command"
+chars = "\u001b[6;9~"
+
+[[keyboard.bindings]]
+key = "Key7"
+mods = "Command"
+chars = "\u001b[7;9~"
+
+[[keyboard.bindings]]
+key = "Key8"
+mods = "Command"
+chars = "\u001b[8;9~"
+
+[[keyboard.bindings]]
+key = "Key9"
+mods = "Command"
+chars = "\u001b[9;9~"

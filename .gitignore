@@ -1,0 +1,4 @@
+# Local state that shouldn't be committed
+*.orig
+*.bak
+.DS_Store

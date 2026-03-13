@@ -1,0 +1,30 @@
+# External resources managed by chezmoi
+# These are downloaded and placed but NOT committed to git
+
+# oh-my-zsh: shell framework
+# Pulled from GitHub, placed at ~/.oh-my-zsh/
+[".oh-my-zsh"]
+    type = "archive"
+    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+# zsh-history-substring-search: oh-my-zsh custom plugin
+# (zsh-syntax-highlighting and zsh-autosuggestions are via Homebrew, not needed here)
+[".oh-my-zsh/custom/plugins/zsh-history-substring-search"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-history-substring-search/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+# Alacritty themes: only on desktop machines (not headless)
+{{ if not .headless -}}
+[".config/alacritty/themes"]
+    type = "archive"
+    url = "https://github.com/alacritty/alacritty-theme/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+{{ end -}}

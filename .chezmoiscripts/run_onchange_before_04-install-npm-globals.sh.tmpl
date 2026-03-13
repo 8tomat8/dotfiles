@@ -1,0 +1,8 @@
+#!/bin/bash
+# Hash: {{ include (joinPath .chezmoi.sourceDir ".chezmoidata/packages.yaml") | sha256sum }}
+if command -v npm &> /dev/null; then
+  echo "Installing npm global packages..."
+  {{ range .npm_globals -}}
+  npm install -g {{ . }}
+  {{ end -}}
+fi

@@ -1,0 +1,8 @@
+#!/bin/bash
+# Hash: {{ include (joinPath .chezmoi.sourceDir ".chezmoidata/packages.yaml") | sha256sum }}
+if command -v cargo &> /dev/null; then
+  echo "Installing cargo tools..."
+  {{ range .cargo_tools -}}
+  cargo install {{ . }} --locked 2>/dev/null || cargo install {{ . }}
+  {{ end -}}
+fi

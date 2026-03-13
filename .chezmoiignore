@@ -1,0 +1,55 @@
+# Secrets — NEVER track these files
+.npmrc
+.sentryclirc
+.claude/mcp_config.json
+.config/opencode/opencode.json
+.config/gh/
+.config/zed/settings.json
+.aws/
+.gnupg/
+.ssh/
+
+# Auto-generated / session data
+.zcompdump*
+.zsh_history
+.zsh_sessions/
+.DS_Store
+.lesshst
+.node_repl_history
+.bash_history
+.python_history
+
+# Large tool directories — never track
+.cargo/
+.rustup/
+.npm/
+.gradle/
+.asdf/
+.oh-my-zsh/
+.tmux/plugins/
+.local/share/nvim/
+.local/share/opencode/
+
+# chezmoi internal state
+.config/chezmoi/
+
+# Claude Code session/cache data
+.claude/history.jsonl
+.claude/todos/
+.claude/transcripts/
+.claude/cache/
+.claude/projects/
+.claude/.claude.json
+
+# OpenCode auto-generated
+.config/opencode/node_modules/
+.config/opencode/bun.lock
+.config/opencode/ocx.lock
+.config/opencode/*.bak.*
+
+# Headless machines — skip desktop-only configs
+{{ if .headless }}
+.config/alacritty/
+.config/zed/
+.ideavimrc
+{{ end }}

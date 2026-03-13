@@ -1,0 +1,32 @@
+# Cross-platform package lists for bootstrap scripts
+# These are read by .chezmoiscripts/ bootstrap scripts
+
+cargo_tools:
+  - avm
+  - cargo-expand
+  - cargo-info
+  - cargo-llvm-cov
+  - cargo-nextest
+  - cargo-sweep
+  - cargo-udeps
+  - cargo-watch
+  - diesel_cli
+  - evcxr_repl
+  - protoc-gen-prost
+  - sea-orm-cli
+
+go_tools:
+  - dlv
+  - gofumpt
+  - gomodifytags
+  - gopls
+  - gotests
+  - impl
+  - protobuf-language-server
+  - sqlc
+  - staticcheck
+  - templ
+
+npm_globals:
+  - bash-language-server
+  - oh-my-opencode

@@ -1,0 +1,8 @@
+#!/bin/bash
+if command -v tmux &> /dev/null; then
+  if [ ! -d "{{ .chezmoi.homeDir }}/.tmux/plugins/tpm" ]; then
+    echo "Installing TPM (tmux plugin manager)..."
+    git clone https://github.com/tmux-plugins/tpm "{{ .chezmoi.homeDir }}/.tmux/plugins/tpm"
+    "{{ .chezmoi.homeDir }}/.tmux/plugins/tpm/bin/install_plugins" || true
+  fi
+fi

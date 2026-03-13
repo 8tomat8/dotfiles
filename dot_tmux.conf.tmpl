@@ -1,0 +1,141 @@
+# Byobu → Plain tmux migration
+# To revert to byobu: byobu-enable && rm ~/.tmux.conf
+#
+# Known issue: tmux-resurrect may cause CPU spike after long macOS sleep (3+ days).
+# Workaround: Edit ~/.tmux/plugins/tmux-resurrect/scripts/ps.sh
+#   Change: ps -ao ... → ps -cao ...
+# See: https://github.com/tmux-plugins/tmux-resurrect/issues/406
+
+
+# ── Environment (Homebrew PATH for run-shell commands) ────────
+{{- if eq .chezmoi.os "darwin" }}
+set-environment -g PATH "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+{{- end }}
+# ── Core Settings ────────────────────────────────────────────
+set -g mouse on
+set -g mode-keys vi
+set -g history-limit 100000
+set -s escape-time 0
+set -g allow-passthrough on
+set -g default-terminal "tmux-256color"
+set -g aggressive-resize on
+set -g monitor-activity on
+set -g automatic-rename on
+set -g base-index 1
+set -g renumber-windows on
+set -g display-panes-time 150
+set -g display-panes-colour magenta
+set -g display-panes-active-colour red
+set -g clock-mode-colour magenta
+set -g clock-mode-style 24
+
+# ── Prefix Key ───────────────────────────────────────────────
+set -g prefix F12
+unbind C-b
+bind F12 send-prefix
+
+# ── Unbind byobu defaults (clean slate) ──────────────────────
+unbind-key -n F3
+unbind-key -n F4
+unbind-key -n F9
+
+# ── Pane Navigation (Option+hjkl via Unicode — NOT Meta bindings) ──
+# IMPORTANT: Use literal Unicode chars, never M-h/M-j/M-k/M-l
+# M-[ and M-] MUST NOT be bound — they collide with CSI/OSC sequences
+bind-key -n ˙ display-panes \; select-pane -L
+bind-key -n ∆ display-panes \; select-pane -D
+bind-key -n ˚ display-panes \; select-pane -U
+bind-key -n ¬ display-panes \; select-pane -R
+
+# ── Window Navigation (Opt+,/. — prev/next tab) ──────────────
+bind-key -n ≤ previous-window
+bind-key -n ≥ next-window
+
+# ── Move Window (Opt+Shift+,/. — reorder tabs) ───────────────
+bind-key -n ¯ swap-window -t -1\; select-window -t -1
+bind-key -n ˘ swap-window -t +1\; select-window -t +1
+
+# ── Window/Pane Creation (Byobu-style F2 keys) ───────────────
+bind-key -n F2 new-window -c "#{pane_current_path}"
+bind-key -n C-F2 display-panes \; split-window -h -c "#{pane_current_path}"
+bind-key -n S-F2 display-panes \; split-window -v -c "#{pane_current_path}"
+bind-key -n F8 command-prompt -I "#W" "rename-window -- '%%'"
+
+# ── Session Switching ─────────────────────────────────────────
+bind-key -n S-Up switch-client -p
+bind-key -n S-Down switch-client -n
+
+# ── Window Navigation (Cmd+1–9 via Alacritty escape sequences) ──
+# \e is NOT valid as a key name in bind-key — use user-keys to map sequences to UserN names.
+# user-keys[0] is taken by Shift+Esc (zoom), so Cmd+1–9 occupy user-keys[1..9].
+set -s user-keys[1] "\e[1;9~"
+set -s user-keys[2] "\e[2;9~"
+set -s user-keys[3] "\e[3;9~"
+set -s user-keys[4] "\e[4;9~"
+set -s user-keys[5] "\e[5;9~"
+set -s user-keys[6] "\e[6;9~"
+set -s user-keys[7] "\e[7;9~"
+set -s user-keys[8] "\e[8;9~"
+set -s user-keys[9] "\e[9;9~"
+bind-key -n User1 select-window -t 1
+bind-key -n User2 select-window -t 2
+bind-key -n User3 select-window -t 3
+bind-key -n User4 select-window -t 4
+bind-key -n User5 select-window -t 5
+bind-key -n User6 select-window -t 6
+bind-key -n User7 select-window -t 7
+bind-key -n User8 select-window -t 8
+bind-key -n User9 select-window -t 9
+
+# ── Pane Management ───────────────────────────────────────────
+bind-key -n C-q kill-pane
+
+# ── Zoom Pane (Shift+Esc via Alacritty user-key) ─────────────
+set -s user-keys[0] "\e[27;2~"
+bind-key -n User0 resize-pane -Z
+
+# ── Clipboard (macOS pbcopy — vi copy mode) ───────────────────
+{{- if eq .chezmoi.os "darwin" }}
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
+{{- else }}
+bind -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -selection clipboard"
+{{- end }}
+
+# ── Pane Borders ──────────────────────────────────────────────
+set -g pane-border-style fg=colour8
+set -g pane-active-border-style fg=colour7,bg=default
+
+# ── Status Bar (tabs + time only) ────────────────────────────
+set -g status-position top
+set -g status-interval 1
+set -g status-justify right
+set -g message-style bg=magenta,fg=white
+
+# ── Catppuccin Theme ──────────────────────────────────────────
+set -g @catppuccin_flavor "mocha"
+set -g @catppuccin_window_status_style "rounded"
+set -g @catppuccin_window_text " #W"
+set -g @catppuccin_window_current_text " #W"
+set -g @catppuccin_status_left_separator "█"
+set -g @catppuccin_status_right_separator "█"
+set -g @catppuccin_date_time_text " %H:%M"
+set -g status-left "#[fg=#313244,bg=#181825]#[fg=#cdd6f4,bg=#313244] #S  %a %Y-%m-%d %H:%M:%S #[fg=#313244,bg=#181825]"
+set -g status-left-length 50
+set -g status-right ""
+set -g status-right-length 0
+
+# ── Plugins (TPM) ─────────────────────────────────────────────
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'timvw/tmux-assistant-resurrect'
+set -g @plugin 'catppuccin/tmux'
+
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '1'
+set -g @resurrect-capture-pane-contents 'on'
+
+# Auto-install TPM + plugins on first run (no manual prefix+I needed)
+if "test ! -d ~/.tmux/plugins/tpm" \
+   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
+run '~/.tmux/plugins/tpm/tpm'

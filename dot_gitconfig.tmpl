@@ -1,0 +1,14 @@
+[user]
+	email = {{ .email }}
+	name = 8tomat8
+	signingkey = D2E8A1A51704F16B3183238911521F373C4118B0
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[push]
+	autoSetupRemote = true
+[core]
+	excludesfile = {{ .chezmoi.homeDir }}/.config/git/ignore
+[worktree]
+	guessRemote = true
