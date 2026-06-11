@@ -7,7 +7,12 @@
 .config/zed/settings.json
 .aws/
 .gnupg/
-.ssh/
+# SSH keys and sensitive files — never track
+.ssh/id_*
+.ssh/*.pem
+.ssh/authorized_keys
+.ssh/known_hosts
+.ssh/known_hosts.old
 
 # Auto-generated / session data
 .zcompdump*

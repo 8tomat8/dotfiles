@@ -1,0 +1,250 @@
+# AeroSpace config — aerospace-migration plan
+# Generated: 2026-06-11
+
+# Do NOT enable until trial is complete and validated
+start-at-login = false
+
+# Sketchybar integration — OUT OF SCOPE for v1 (dormant)
+# after-startup-command = ['exec-and-forget sketchybar --bar height=37']
+
+# Default layout — fullscreen-friendly for one-window workspaces
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# Accordion windows full-width (0 = no stack-peek offset)
+accordion-padding = 0
+
+# Normalization — documented defaults
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Mouse follows focus
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Key mapping
+[key-mapping]
+preset = 'qwerty'
+
+# Gaps — minimal (user runs fullscreen)
+[gaps]
+inner.horizontal = 0
+inner.vertical   = 0
+outer.left       = 0
+outer.bottom     = 0
+outer.top        = 0
+outer.right      = 0
+
+[mode.main.binding]
+# (bindings filled by Tasks 4 and 5)
+
+# === KEYBINDS:WORKSPACES ===
+ctrl-cmd-1 = 'workspace 1'
+ctrl-cmd-2 = 'workspace 2'
+ctrl-cmd-3 = 'workspace 3'
+ctrl-cmd-4 = 'workspace 4'
+ctrl-cmd-5 = 'workspace 5'
+ctrl-cmd-6 = 'workspace 6'
+ctrl-cmd-7 = 'workspace 7'
+ctrl-cmd-8 = 'workspace 8'
+ctrl-cmd-9 = 'workspace 9'
+ctrl-cmd-0 = 'workspace 10'
+ctrl-cmd-minus = 'workspace sketch'
+
+ctrl-cmd-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+ctrl-cmd-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+ctrl-cmd-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+ctrl-cmd-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+ctrl-cmd-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+ctrl-cmd-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+ctrl-cmd-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+ctrl-cmd-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+ctrl-cmd-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
+ctrl-cmd-shift-0 = 'move-node-to-workspace --focus-follows-window 10'
+ctrl-cmd-shift-minus = 'move-node-to-workspace --focus-follows-window sketch'
+
+# === KEYBINDS:FOCUS-MOVE-RESIZE ===
+# Focus navigation (vim-style hjkl). Moves focus within the tiling tree.
+ctrl-cmd-h = 'focus left'
+ctrl-cmd-j = 'focus down'
+ctrl-cmd-k = 'focus up'
+ctrl-cmd-l = 'focus right'
+
+# Window movement within the current workspace's tiling tree (NOT cross-workspace).
+# Safe: shift+hjkl never collides with shift+digit move-to-workspace binds.
+ctrl-cmd-shift-h = 'move left'
+ctrl-cmd-shift-j = 'move down'
+ctrl-cmd-shift-k = 'move up'
+ctrl-cmd-shift-l = 'move right'
+
+# On-demand tiling toggle for WS8/WS10 (and any ad-hoc tiling need).
+# Toggles between `tiles` (split-view) and `accordion` (stacked = looks fullscreen
+# when only one window is foregrounded). Mnemonic: 't' = tile.
+# ctrl-cmd-f is FORBIDDEN (macOS native fullscreen); ctrl-cmd-t has no macOS conflict.
+ctrl-cmd-t = 'layout tiles accordion'
+
+# i3-style resize mode: ctrl-cmd-r enters, then hjkl resize (vim axes), esc/enter exits.
+ctrl-cmd-r = 'mode resize'
+
+[mode.resize.binding]
+h = 'resize width -50'
+l = 'resize width +50'
+j = 'resize height +50'
+k = 'resize height -50'
+equal = 'balance-sizes'
+enter = 'mode main'
+esc = 'mode main'
+
+# === MONITOR-ASSIGNMENT ===
+# When external present: WS1-10 on MPG321UX OLED, sketch on built-in.
+# When undocked: all WS collapse to built-in via fallback.
+[workspace-to-monitor-force-assignment]
+1 = ['MPG321UX OLED', 'built-in']
+2 = ['MPG321UX OLED', 'built-in']
+3 = ['MPG321UX OLED', 'built-in']
+4 = ['MPG321UX OLED', 'built-in']
+5 = ['MPG321UX OLED', 'built-in']
+6 = ['MPG321UX OLED', 'built-in']
+7 = ['MPG321UX OLED', 'built-in']
+8 = ['MPG321UX OLED', 'built-in']
+9 = ['MPG321UX OLED', 'built-in']
+10 = ['MPG321UX OLED', 'built-in']
+sketch = ['built-in']
+
+# === WINDOW-ROUTING ===
+
+[[on-window-detected]]
+    if.app-id = 'org.mozilla.firefox'
+    run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+    if.app-id = 'com.google.Chrome'
+    run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+    if.app-id = 'org.alacritty'
+    run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Terminal'
+    run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+    if.app-id = 'com.todesktop.230313mzl4w4u92'
+    run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+    if.app-id = 'dev.zed.Zed'
+    run = 'move-node-to-workspace 3'
+
+# Fleet: uncomment when installed
+# [[on-window-detected]]
+#     if.app-id = 'com.jetbrains.fleet'
+#     run = 'move-node-to-workspace 3'
+
+# IntelliJ IDEA: uncomment when installed
+# [[on-window-detected]]
+#     if.app-id = 'com.jetbrains.intellij.ce'
+#     run = 'move-node-to-workspace 3'
+#
+# [[on-window-detected]]
+#     if.app-id = 'com.jetbrains.intellij'
+#     run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+    if.app-id = 'net.cozic.joplin-desktop'
+    run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+    if.app-id = 'com.linear'
+    run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+    if.app-id = 'com.anthropic.claudefordesktop'
+    run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+    if.app-id = 'com.openai.chat'
+    run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+    if.app-id = 'com.tidal.desktop'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.iCal'
+    run = ['move-node-to-workspace 8', 'layout h_tiles']
+
+[[on-window-detected]]
+    if.app-id = 'com.cron.electron'
+    run = ['move-node-to-workspace 8', 'layout h_tiles']
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.mail'
+    run = ['move-node-to-workspace 8', 'layout h_tiles']
+
+# Notion Mail: uncomment when installed
+# [[on-window-detected]]
+#     if.app-id = 'com.notion.id'
+#     run = 'move-node-to-workspace 8'
+
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+    if.app-id = 'ru.keepcoder.Telegram'
+    run = ['move-node-to-workspace 10', 'layout h_tiles']
+
+[[on-window-detected]]
+    if.app-id = 'net.whatsapp.WhatsApp'
+    run = ['move-node-to-workspace 10', 'layout h_tiles']
+
+# === LAYOUT-AND-FLOATING ===
+# Layout strategy for this configuration:
+#
+# 1. Default layout (set globally above): `tiles` + `auto` orientation.
+#    Single-window workspaces (WS1–WS7, WS9) fill the screen naturally — no per-workspace
+#    config needed. The tiling tree reduces to a single root window.
+#
+# 2. WS10 (Telegram + WhatsApp): vertical tiling, 1:1 (AeroSpace default equal split).
+#    Declarative: the `layout v_tiles` command is appended to each app's routing block
+#    in WINDOW-ROUTING above (`run = ['move-node-to-workspace 10', 'layout v_tiles']`).
+#    No manual resize needed — AeroSpace splits the container 50/50.
+#
+# 3. WS8 (Notion Calendar + Mail): vertical tiling. Declarative `layout v_tiles` is set
+#    the same way as WS10. The desired ~1:2 ratio (Calendar bigger) CANNOT be pinned
+#    declaratively in AeroSpace 0.20.3-Beta — there is no `default-split-ratio` or
+#    `[[on-window-detected]]` option for split proportion. After both windows are tiled,
+#    achieve cal:mail = 1:2 (Mail twice as wide) MANUALLY:
+#      • Focus Calendar (com.apple.iCal), then run from a terminal:
+#          aerospace resize smart -400
+#        (shrinks Calendar width so Mail gets ~2/3). Adjust value to taste.
+#      • `resize smart` automatically picks the correct axis (height for a vertical
+#        parent, width for horizontal), so the same command works regardless of
+#        orientation. Pixel value depends on monitor resolution.
+#    This is a one-time manual step per session (until you cycle the windows).
+#    Recorded in the trial checklist as a manual verification step.
+#
+# 4. The `ctrl-cmd-t` keybind (set in KEYBINDS:FOCUS-MOVE-RESIZE) toggles between
+#    `tiles` and `accordion` for any workspace on demand — useful if you want
+#    temporary fullscreen-like behavior on WS8/WS10 without untiling.
+#
+# 5. Floating exceptions below: dialog-heavy / system apps that don't tile well.
+#    Scope is intentionally narrow — system Settings, Finder, Activity Monitor.
+#    Add more app-ids here as the need is observed in real use.
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.systempreferences'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.ActivityMonitor'
+    run = 'layout floating'

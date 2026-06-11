@@ -6,7 +6,7 @@ import = [
 [window]
 # option_as_alt = "Both"
 
-startup_mode = "SimpleFullscreen"
+startup_mode = "Windowed"
 opacity = 0.9
 
 padding.x = 0
