@@ -4,7 +4,6 @@
 .claude/mcp_config.json
 .config/opencode/opencode.json
 .config/gh/
-.config/zed/settings.json
 .aws/
 .gnupg/
 # SSH keys and sensitive files — never track

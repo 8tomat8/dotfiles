@@ -1,0 +1,129 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "diff_view_style": "split",
+  "tabs": {
+    "close_position": "right",
+  },
+  "cli_default_open_behavior": "new_window",
+  "outline_panel": {
+    "dock": "right",
+  },
+  "collaboration_panel": {
+    "dock": "right",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "vim": {
+    "use_smartcase_find": true,
+  },
+  "toolbar": {
+    "code_actions": true,
+  },
+  "scrollbar": {
+    "axes": {
+      "horizontal": false,
+    },
+    "selected_text": true,
+    "search_results": true,
+    "git_diff": true,
+    "show": "auto",
+    "cursors": false,
+  },
+  "hover_popover_delay": 100,
+  "tab_size": 2,
+  "languages": {
+    "YAML": {
+      "tab_size": 2,
+    },
+  },
+  "search": {
+    "include_ignored": true,
+  },
+  "project_panel": {
+    "dock": "left",
+    "hide_hidden": false,
+  },
+  "ssh_connections": [
+    {
+      "host": "bananabook",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/home/tomat/Projects"],
+        },
+      ],
+    },
+    {
+      "host": "nas",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/home/8tomat8"],
+        },
+        {
+          "paths": ["/home/8tomat8/media-stack"],
+        },
+      ],
+    },
+  ],
+  "agent_servers": {
+    "pi-acp": {
+      "type": "registry",
+    },
+    "opencode": {
+      "type": "registry",
+    },
+    "codex-acp": {
+      "type": "registry",
+    },
+  },
+  "edit_predictions": {
+    "provider": "zed",
+  },
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "ui_font_weight": 400.0,
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_weight": 400.0,
+  "buffer_font_family": "JetBrainsMonoNL Nerd Font",
+  "terminal": {
+    "font_size": 11.0,
+  },
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": true,
+  },
+  "use_smartcase_search": true,
+  "minimap": {
+    "show": "auto",
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 1000,
+    },
+  },
+  "file_types": {},
+  "vim_mode": true,
+  "base_keymap": "VSCode",
+  "icon_theme": "Catppuccin Mocha",
+  "ui_font_size": 13.0,
+  "buffer_font_size": 11.0,
+  "theme": {
+    "mode": "dark",
+    "light": "KTRZ Monokai",
+    "dark": "Ayu Dark",
+  },
+  "preview_tabs": {
+    "enabled": true,
+    "enable_keep_preview_on_code_navigation": true,
+  },
+}

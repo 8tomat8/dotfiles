@@ -13,7 +13,8 @@
       "cmd-f cmd-w": [
         "task::Spawn",
         { "task_name": "Find in Files", "reveal_target": "center" }
-      ]
+      ],
+      "cmd-shift-t": "workspace::NewCenterTerminal"
     }
   },
 
@@ -184,6 +185,32 @@
     "context": "FileFinder",
       "bindings": {
       "ctrl-h": "search::ToggleIncludeIgnored"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-k cmd-p": "editor::CopyFileLocation"
+    }
+  },
+  {
+    "context": "Editor && multibuffer && VimControl && !menu",
+    "bindings": {
+      "z shift-c": "editor::FoldAll",
+      "z shift-o": "editor::UnfoldAll"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "cmd-1": ["workspace::ActivatePane", 0],
+      "cmd-2": ["workspace::ActivatePane", 1],
+      "cmd-3": ["workspace::ActivatePane", 2],
+      "cmd-4": ["workspace::ActivatePane", 3],
+      "cmd-5": ["workspace::ActivatePane", 4],
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
     }
   }
 ]
