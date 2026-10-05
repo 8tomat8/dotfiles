@@ -152,14 +152,15 @@ export GOPATH=~/Projects/go
 # Opencode
 export PATH=$HOME/.opencode/bin:$PATH
 
+# Local secrets (not managed by chezmoi)
+[[ -r ~/.zsh_secrets ]] && source ~/.zsh_secrets
+
 # Misc aliases
 alias tig=lazygit
 alias lado=lazydocker
 alias :q=exit
 alias otp='ykman oath accounts code -s '
 alias omo=oh-my-opencode
-alias cc=claude
-alias ccp="claude -p"
 alias oc=opencode
 alias ccl="cargo clippy --workspace --all-targets --all-features -- --deny warnings"
 alias pp="pnpm install && pnpm ios --device"

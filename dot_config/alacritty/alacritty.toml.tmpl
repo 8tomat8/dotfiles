@@ -4,7 +4,7 @@ import = [
 ]
 
 [window]
-# option_as_alt = "Both"
+option_as_alt = "Both"
 
 startup_mode = "Windowed"
 opacity = 0.9
@@ -26,7 +26,7 @@ bold_italic.style = "MediumItalic"
 size = 11.0
 
 [terminal]
-shell = { program = "/opt/homebrew/bin/tmux", args = ["new-session", "-A", "-s", "main"] }
+shell = { program = "{{ .chezmoi.homeDir }}/.local/bin/herdr" }
 
 [scrolling]
 history = 65535
@@ -59,53 +59,71 @@ key = "Return"
 mods = "Shift"
 chars = "\u001B\r"
 
+# Ctrl+Tab -> CSI-u so it reaches the app distinct from plain Tab.
+# OMP (~/.omp/agent/keybindings.yml) binds app.plan.toggle to ctrl+tab; plain Tab
+# stays free for autocomplete/list selection. Alacritty speaks only the Kitty
+# keyboard protocol and tmux 3.6 only modifyOtherKeys/CSI-u, so Ctrl+Tab can't
+# auto-negotiate -- emit the CSI-u bytes (Tab=9, Ctrl=mod 5) explicitly.
 [[keyboard.bindings]]
-key = "Escape"
-mods = "Shift"
-chars = "\u001b[27;2~"
+key = "Tab"
+mods = "Control"
+chars = "\u001b[9;5u"
 
-# Cmd+1–9 → tmux window switching (overrides Alacritty's default Cmd+N tab switch)
+# Plain F2 -> legacy SS3 Q. Under herdr's kitty mode Alacritty sends F2 as
+# parameterless `\e[Q`, which herdr 0.9.1 doesn't parse as f2 (new_workspace).
+[[keyboard.bindings]]
+key = "F2"
+chars = "\u001bOQ"
+
+# Cmd+1..9,0 -> Kitty CSI-u with the Super modifier (mod 9) so herdr sees cmd+N
+# (switch_tab / last tab). Also overrides Alacritty's default Cmd+N SelectTab and
+# Cmd+0 ResetFontSize.
 [[keyboard.bindings]]
 key = "Key1"
 mods = "Command"
-chars = "\u001b[1;9~"
+chars = "\u001b[49;9u"
 
 [[keyboard.bindings]]
 key = "Key2"
 mods = "Command"
-chars = "\u001b[2;9~"
+chars = "\u001b[50;9u"
 
 [[keyboard.bindings]]
 key = "Key3"
 mods = "Command"
-chars = "\u001b[3;9~"
+chars = "\u001b[51;9u"
 
 [[keyboard.bindings]]
 key = "Key4"
 mods = "Command"
-chars = "\u001b[4;9~"
+chars = "\u001b[52;9u"
 
 [[keyboard.bindings]]
 key = "Key5"
 mods = "Command"
-chars = "\u001b[5;9~"
+chars = "\u001b[53;9u"
 
 [[keyboard.bindings]]
 key = "Key6"
 mods = "Command"
-chars = "\u001b[6;9~"
+chars = "\u001b[54;9u"
 
 [[keyboard.bindings]]
 key = "Key7"
 mods = "Command"
-chars = "\u001b[7;9~"
+chars = "\u001b[55;9u"
 
 [[keyboard.bindings]]
 key = "Key8"
 mods = "Command"
-chars = "\u001b[8;9~"
+chars = "\u001b[56;9u"
 
 [[keyboard.bindings]]
 key = "Key9"
 mods = "Command"
-chars = "\u001b[9;9~"
+chars = "\u001b[57;9u"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Command"
+chars = "\u001b[48;9u"

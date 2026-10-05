@@ -1,0 +1,7 @@
+#!/bin/bash
+# Hash: {{ include (joinPath .chezmoi.sourceDir "Library/LaunchAgents/org.codeberg.p2502.lspmux.plist.tmpl") | sha256sum }}
+{{ if eq .chezmoi.os "darwin" -}}
+echo "Loading lspmux LaunchAgent..."
+launchctl bootout gui/$(id -u)/org.codeberg.p2502.lspmux 2>/dev/null || true
+launchctl bootstrap gui/$(id -u) "$HOME/Library/LaunchAgents/org.codeberg.p2502.lspmux.plist"
+{{ end -}}

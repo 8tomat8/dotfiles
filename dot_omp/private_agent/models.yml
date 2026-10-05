@@ -1,0 +1,7 @@
+providers:
+  openrouter:
+    modelOverrides:
+      moonshotai/kimi-k3:
+        maxTokens: 16000
+        compat:
+          alwaysSendMaxTokens: true

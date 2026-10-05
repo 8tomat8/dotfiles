@@ -1,0 +1,42 @@
+# lspmux server configuration (macOS config dir, confirmed via `lspmux config`).
+# Only options that differ from the built-in defaults are listed.
+
+# Keep a rust-analyzer instance alive for 30 minutes after its last client
+# disconnects, so quitting and reopening nvim reattaches to a warm server
+# instead of re-indexing the workspace. Default is 300.
+instance_timeout = 1800
+
+# Instances are keyed on (server, args, env, workspace_root), so any environment
+# variable that differs between two editor invocations spawns a second
+# rust-analyzer for the same workspace. rustaceanvim connects over TCP and sends
+# no environment at all, so this list only applies to the `lspmux client` shim
+# (any other editor wired through it); the exclusions keep per-terminal and
+# per-session variables from splitting instances.
+pass_environment = [
+  "*",
+  "!TMUX",
+  "!TMUX_PANE",
+  "!TERM",
+  "!TERM_PROGRAM",
+  "!TERM_PROGRAM_VERSION",
+  "!TERM_SESSION_ID",
+  "!COLORTERM",
+  "!WINDOWID",
+  "!ITERM_*",
+  "!KITTY_*",
+  "!ALACRITTY_*",
+  "!WEZTERM_*",
+  "!LC_TERMINAL*",
+  "!NVIM",
+  "!NVIM_*",
+  "!VIM",
+  "!VIMRUNTIME",
+  "!MYVIMRC",
+  "!SHLVL",
+  "!PWD",
+  "!OLDPWD",
+  "!_",
+  "!XPC_*",
+  "!__CF*",
+  "!SECURITYSESSIONID",
+]

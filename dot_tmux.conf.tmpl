@@ -34,6 +34,10 @@ set -g prefix F12
 unbind C-b
 bind F12 send-prefix
 
+# ── Pi.dev keys fix ──────────────────────────────────────────
+set -g extended-keys on
+set -g extended-keys-format csi-u
+
 # ── Unbind byobu defaults (clean slate) ──────────────────────
 unbind-key -n F3
 unbind-key -n F4

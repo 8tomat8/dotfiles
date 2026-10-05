@@ -1,0 +1,81 @@
+onboarding = false
+[keys]
+prefix = "ctrl+space"
+focus_pane_left = ["prefix+h", "alt+h"]
+focus_pane_down = ["prefix+j", "alt+j"]
+focus_pane_up = ["prefix+k", "alt+k"]
+focus_pane_right = ["prefix+l", "alt+l"]
+previous_workspace = ["alt+comma", "shift+up"]
+next_workspace = ["alt+period", "shift+down"]
+new_workspace = ["prefix+shift+n", "f2"]
+rename_workspace = ["prefix+shift+w", "f8"]
+split_vertical = ["prefix+v", "ctrl+f2"]
+split_horizontal = ["prefix+minus", "shift+f2"]
+close_pane = ["prefix+x", "ctrl+q"]
+zoom = ["prefix+z", "shift+esc"]
+switch_tab = ["prefix+1..9", "cmd+1..9"]
+
+# Reorder workspaces (tmux swap-window -t -1/+1). The CLI has no `workspace move`,
+# so send the raw socket request; insert_index counts slots before removal, hence
+# n-2 for left and n+1 for right. Out-of-range moves are rejected by the server.
+[[keys.command]]
+key = ["alt+shift+comma", "alt+<"]
+type = "shell"
+command = '''n=$("$HERDR_BIN_PATH" workspace get "$HERDR_ACTIVE_WORKSPACE_ID" | sed 's/.*"number":\([0-9]*\).*/\1/'); printf '{"id":"mv","method":"workspace.move","params":{"workspace_id":"%s","insert_index":%d}}\n' "$HERDR_ACTIVE_WORKSPACE_ID" $((n-2)) | nc -U "$HERDR_SOCKET_PATH"'''
+description = "move workspace left"
+
+[[keys.command]]
+key = ["alt+shift+period", "alt+>"]
+type = "shell"
+command = '''n=$("$HERDR_BIN_PATH" workspace get "$HERDR_ACTIVE_WORKSPACE_ID" | sed 's/.*"number":\([0-9]*\).*/\1/'); printf '{"id":"mv","method":"workspace.move","params":{"workspace_id":"%s","insert_index":%d}}\n' "$HERDR_ACTIVE_WORKSPACE_ID" $((n+1)) | nc -U "$HERDR_SOCKET_PATH"'''
+description = "move workspace right"
+
+# switch_tab only indexes 1..9; cmd+0 jumps to the last tab.
+[[keys.command]]
+key = "cmd+0"
+type = "shell"
+command = '''"$HERDR_BIN_PATH" tab focus "$("$HERDR_BIN_PATH" tab list --workspace "$HERDR_ACTIVE_WORKSPACE_ID" | sed 's/.*"tab_id":"\([^"]*\)".*/\1/')"'''
+description = "last tab"
+
+# Terminal annotations
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "annotate.capture"
+description = "annotate text"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "annotate.copy-context"
+description = "copy annotations as context"
+
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "annotate.manage"
+description = "manage annotations"
+
+# Document review (plannotator-tui)
+[[keys.command]]
+key = "prefix+o"
+type = "plugin_action"
+command = "annotate.open"
+description = "review documents in this folder"
+
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "annotate.last"
+description = "review the agent's last reply"
+
+[terminal]
+new_cwd = "follow"
+
+[ui]
+agent_panel_sort = "spaces"
+
+[advanced]
+# Ghostty-backed panes count bytes, not lines: ~1 KB/line at ~120 cols, so this
+# is roughly tmux's history-limit 100000. Allocated only as scrollback fills.
+scrollback_limit_bytes = 100000000

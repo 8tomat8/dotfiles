@@ -1,0 +1,3 @@
+# User remaps. Action IDs from `/hotkeys` / OMP keybindings docs.
+# Plan toggle on Ctrl+Tab so plain Tab stays free for tui.input.tab (autocomplete / list selection).
+app.plan.toggle: ctrl+tab

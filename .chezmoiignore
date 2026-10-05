@@ -1,7 +1,7 @@
 # Secrets — NEVER track these files
 .npmrc
 .sentryclirc
-.claude/mcp_config.json
+.zsh_secrets
 .config/opencode/opencode.json
 .config/gh/
 .aws/
@@ -37,23 +37,42 @@
 # chezmoi internal state
 .config/chezmoi/
 
-# Claude Code session/cache data
-.claude/history.jsonl
-.claude/todos/
-.claude/transcripts/
-.claude/cache/
-.claude/projects/
-.claude/.claude.json
-
 # OpenCode auto-generated
 .config/opencode/node_modules/
 .config/opencode/bun.lock
 .config/opencode/ocx.lock
 .config/opencode/*.bak.*
 
+# oh-my-pi runtime state
+.omp/agent/*.db
+.omp/agent/*.db-*
+.omp/agent/*.lock
+.omp/agent/blobs/
+.omp/agent/cache/
+.omp/agent/sessions/
+.omp/agent/terminal-sessions/
+.omp/agent/predict/
+.omp/agent/baselines/
+.omp/agent/extensions/herdr-omp-agent-state.ts
+
+# herdr runtime state and GitHub-installed plugins
+.config/herdr/*.log
+.config/herdr/*.sock
+.config/herdr/session.json
+.config/herdr/sessions/
+.config/herdr/plugins.json
+.config/herdr/.plugins.lock
+.config/herdr/release-notes.json
+.config/herdr/plugins/github/
+
 # Headless machines — skip desktop-only configs
 {{ if .headless }}
 .config/alacritty/
 .config/zed/
 .ideavimrc
+{{ end }}
+
+# macOS-only (LaunchAgents, Application Support)
+{{ if ne .chezmoi.os "darwin" }}
+Library/
 {{ end }}

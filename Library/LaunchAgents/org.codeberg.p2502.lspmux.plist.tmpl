@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>org.codeberg.p2502.lspmux</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/opt/homebrew/bin/lspmux</string>
+      <string>server</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <!-- rust-analyzer is spawned by this process and inherits this PATH:
+           ~/.cargo/bin first so `rust-analyzer`, `cargo` and `rustc` resolve to
+           the rustup proxies, which pick each project's pinned toolchain. -->
+      <key>PATH</key>
+      <string>{{ .chezmoi.homeDir }}/.cargo/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>{{ .chezmoi.homeDir }}/Library/Logs/lspmux.log</string>
+    <key>StandardErrorPath</key>
+    <string>{{ .chezmoi.homeDir }}/Library/Logs/lspmux.log</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+  </dict>
+</plist>

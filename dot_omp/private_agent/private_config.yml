@@ -1,0 +1,77 @@
+modelRoles:
+  default: anthropic/claude-opus-5-5:high
+  implementation: anthropic/claude-opus-5-5:high
+  research: openai-codex/gpt-5.6-sol:medium
+  review: openai-codex/gpt-6-astra:xhigh
+  plan: anthropic/claude-fable-5-1:high
+  merge: anthropic/claude-fable-5-1:high
+  slow: "@review"
+  advisor: "@review"
+  judge: typesafe/jev-latest
+browser:
+  headless: false
+providers:
+  webSearchOrder:
+    - perplexity
+    - gemini
+    - anthropic
+    - codex
+    - xai
+    - zai
+    - exa
+    - tinyfish
+    - jina
+    - kagi
+    - tavily
+    - firecrawl
+    - brave
+    - kimi
+    - parallel
+    - synthetic
+    - searxng
+    - startpage
+    - duckduckgo
+    - ecosia
+    - google
+    - mojeek
+    - public
+symbolPreset: nerd
+theme:
+  dark: dark-monokai
+setupVersion: 2
+emojiAutocomplete: false
+memory:
+  backend: hindsight
+hindsight:
+  bankId: null
+  scoping: per-project
+  retainEveryNTurns: 8
+  retainOverlapTurns: 0
+extensions:
+  - ~/.omp/agent/opencode-prefix-shortcuts.ts
+  - ~/.omp/agent/tmux-assistant-resurrect.ts
+tier:
+  openai: priority
+retry:
+  modelFallback: false
+  usageAwareFallback: false
+  fallbackChains:
+    {}
+dev:
+  autoqaConsent: denied
+defaultThinkingLevel: auto
+find:
+  enabled: true
+composer:
+  shape: box
+task:
+  showResolvedModelBadge: true
+  agentModelOverrides:
+    task: "@implementation"
+    designer: "@implementation"
+    sonic: "@implementation"
+    code-simplifier: "@implementation"
+    reviewer: "@review"
+    security-reviewer: "@review"
+    scout: "@research"
+    librarian: "@research"
